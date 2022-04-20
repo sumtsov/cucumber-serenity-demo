@@ -41,23 +41,22 @@ public class WithdrawalSteps {
     }
 
     @Step
-    public void withdrawFromAccount(Long accountId, BigDecimal amount) throws Exception {
+    public void withdrawFromAccount(Long accountId, BigDecimal amount) {
         StringBuilder sb = new StringBuilder("http://localhost:")
                 .append(port)
-                .append("/accounts/withdraw/")
-                .append(amount)
-                .append("/from/")
-                .append(accountId);
-        Account account = restTemplate.getForObject(sb.toString(), Account.class);
+                .append("/accounts/")
+                .append(accountId)
+                .append("/withdraw/")
+                .append(amount);
+        Account account = restTemplate.postForObject(sb.toString(), null, Account.class);
         results.put(account.getId(), account);
     }
 
     @Step
-    public void checkAccountBalance(Long accountId, BigDecimal amount, String ccy) {
+    public void checkAccountBalance(Long accountId, BigDecimal amount) {
         Account account = results.get(accountId);
 
         Assertions.assertNotNull(account);
-        Assertions.assertEquals(ccy, account.getCcy());
         Assertions.assertEquals(amount, account.getAmount());
     }
 }

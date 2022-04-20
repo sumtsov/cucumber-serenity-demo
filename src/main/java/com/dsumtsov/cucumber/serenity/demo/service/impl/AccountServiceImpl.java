@@ -17,7 +17,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     @Transactional
-    public Account withdraw(BigDecimal amount, Long accountId) {
+    public Account withdraw(Long accountId, BigDecimal amount) {
         Account account = repository.getById(accountId);
         BigDecimal result = account.getAmount().subtract(amount);
         account.setAmount(result);

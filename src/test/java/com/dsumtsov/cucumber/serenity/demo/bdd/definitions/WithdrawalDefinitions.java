@@ -29,13 +29,13 @@ public class WithdrawalDefinitions {
         steps.withAccounts(BddUtils.createAccountsList(attributesList));
     }
 
-    @When("^(\\d*\\.?\\d*) (USD|EUR) is withdrawn from account (\\d+)$")
-    public void withdrawFromAccount(String amount, String ccy, long accountId) throws Exception {
+    @When("^(\\d*\\.?\\d*) USD is withdrawn from account (\\d+)$")
+    public void withdrawFromAccount(String amount, long accountId) throws Exception {
         steps.withdrawFromAccount(accountId, new BigDecimal(amount));
     }
 
-    @Then("^account (\\d+) balance should be (\\d*\\.?\\d*) (USD|EUR)$")
-    public void checkAccountBalance(long accountId, String amount, String ccy) {
-        steps.checkAccountBalance(accountId, new BigDecimal(amount), ccy);
+    @Then("^account (\\d+) balance should be (\\d*\\.?\\d*) USD$")
+    public void checkAccountBalance(long accountId, String amount) {
+        steps.checkAccountBalance(accountId, new BigDecimal(amount));
     }
 }
